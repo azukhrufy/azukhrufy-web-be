@@ -5,11 +5,7 @@ const logger = require('./config/logger');
 
 let server;
 const PORT = process.env.PORT || 3000;
-const mongooseOptions = {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
+const mongooseOptions = {};
 mongoose
   .connect(process.env.MONGODB_URL, mongooseOptions)
   .then(() => {
