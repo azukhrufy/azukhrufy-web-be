@@ -1,13 +1,19 @@
 const mongoose = require('mongoose');
 const app = require('./app');
-const config = require('./config/config');
+// const config = require('./config/config');
 const logger = require('./config/logger');
 
 let server;
-mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
+const PORT = process.env.PORT || 3000;
+const mongooseOptions = {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+mongoose.connect(process.env.MONGODB_URL, mongooseOptions).then(() => {
   logger.info('Connected to MongoDB');
-  server = app.listen(config.port, () => {
-    logger.info(`Listening to port ${config.port}`);
+  server = app.listen(PORT, () => {
+    logger.info(`Listening to port ${PORT}`);
   });
 });
 

@@ -6,6 +6,7 @@ services:
     image: node-app
     environment:
       - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      - PORT=3000
     ports:
       - '3000:3000'
     depends_on:
@@ -14,15 +15,17 @@ services:
       - .:/usr/src/node-app
     networks:
       - node-network
+    restart: unless-stopped
 
   mongodb:
-    image: mongo:4.2.1-bionic
+    image: mongo:6
     ports:
       - '27017:27017'
     volumes:
       - dbdata:/data/db
     networks:
       - node-network
+    restart: unless-stopped
 
 volumes:
   dbdata:
