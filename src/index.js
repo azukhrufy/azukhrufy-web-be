@@ -10,12 +10,18 @@ const mongooseOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-mongoose.connect(process.env.MONGODB_URL, mongooseOptions).then(() => {
-  logger.info('Connected to MongoDB');
-  server = app.listen(PORT, () => {
-    logger.info(`Listening to port ${PORT}`);
+mongoose
+  .connect(process.env.MONGODB_URL, mongooseOptions)
+  .then(() => {
+    logger.info('Connected to MongoDB');
+    server = app.listen(PORT, () => {
+      logger.info(`Listening to port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    logger.error('MongoDB connection error:', err);
+    process.exit(1);
   });
-});
 
 const exitHandler = () => {
   if (server) {
