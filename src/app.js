@@ -6,9 +6,11 @@ const compression = require('compression');
 const cors = require('cors');
 const passport = require('passport');
 const httpStatus = require('http-status');
+const swaggerUi = require('swagger-ui-express');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 const { jwtStrategy } = require('./config/passport');
+const swaggerSpec = require('./docs'); // otomatis ambil index.js
 const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
@@ -40,6 +42,9 @@ app.use(compression());
 // enable cors
 app.use(cors());
 app.options('*', cors());
+
+// Swagger docs
+app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // jwt authentication
 app.use(passport.initialize());
