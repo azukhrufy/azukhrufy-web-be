@@ -19,6 +19,53 @@ components:
         name: fake name
         role: user
 
+    Company:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+        description:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+      example:
+        id: 5ebac534954b54139806c112
+        name: Acme Corp
+        role: client
+        description: A leading manufacturer
+        startDate: 2024-01-01
+        endDate: 2024-12-31
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        companyId:
+          type: string
+          description: Company ID reference
+      example:
+        id: 5ebac534954b54139806c113
+        name: Project Alpha
+        description: First project
+        companyId: 5ebac534954b54139806c112
+
     Token:
       type: object
       properties:
