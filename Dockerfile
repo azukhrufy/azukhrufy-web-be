@@ -6,9 +6,11 @@ WORKDIR /usr/src/node-app
 
 COPY package.json yarn.lock ./
 
+RUN npm install -g yarn
+
 USER node
 
-RUN yarn install --pure-lockfile
+RUN yarn install --frozen-lockfile
 
 COPY --chown=node:node . .
 
